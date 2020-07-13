@@ -4,6 +4,11 @@
 */
 
 
+/*
+* Header
+*/
+
+
 function sp_get_header_logo(){
 	$siteUrl 	= get_home_url();
 	$logo1 		= get_theme_mod('sp_logo_1');
@@ -52,6 +57,66 @@ function sp_get_header_menu($menuID=null, $result=null){
 
 	return $result;
 }
+
+
+/*
+* Front page sections
+*/
+
+
+function sp_get_slider_section($result=null){
+
+	$result .= '<section id="slider" class="slider-element slider-parallax swiper_wrapper full-screen clearfix">';
+		$result .= '<div class="slider-parallax-inner">';
+
+			$result .= '<div class="swiper-container swiper-parent">';
+				$result .= '<div class="swiper-wrapper">';
+
+					$args = array(
+						'post_type' 	=> 	'sp_slider',
+						'order'			=>	'asc',
+					);
+					 				 
+					$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
+
+					if(count($spPosts)>0){
+						foreach ($spPosts as $spPost) {
+							$postID 	= $spPost['id'];
+							$title 		= $spPost['title']; 
+							$content 	= SP_Framework_Post_Type_Utility::get_content($postID); 
+							$image 		= SP_Framework_Post_Type_Utility::get_image($postID, 'full');
+
+							$result .= '<div class="swiper-slide dark" style="background-image: url('.$image.');">';
+								$result .= '<div class="slider-content">';
+									$result .= '<div class="container clearfix">';
+										$result .= '<div class="slider-caption slider-caption-center">';
+											$result .= '<h2 data-animate="fadeInUp">'.$title.'</h2>';
+											$result .= '<p class="d-none d-sm-block" data-animate="fadeInUp" data-delay="200">'.$content.'</p>';
+										$result .= '</div>';
+									$result .= '</div>';
+								$result .= '</div>';
+							$result .= '</div>';
+						}
+					}
+
+				$result .= '</div>';
+				$result .= '<div class="slider-arrow-left"><i class="icon-angle-left"></i></div>';
+				$result .= '<div class="slider-arrow-right"><i class="icon-angle-right"></i></div>';
+			$result .= '</div>';
+
+			$result .= '<a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow"><i class="icon-angle-down infinite animated fadeInDown"></i></a>';
+
+		$result .= '</div>';
+	$result .= '</section>';
+
+	return $result;
+}
+
+
+/*
+* Pages
+*/
+
 
 function sp_get_page_contacts($result=null){
 
@@ -106,6 +171,12 @@ function sp_get_page_contacts($result=null){
 
 	return $result;
 }
+
+
+/*
+* Footer
+*/
+
 
 function sp_get_footer_menu($menuID=null, $result=null){
 
