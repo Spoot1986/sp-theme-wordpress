@@ -5,6 +5,24 @@
 
 
 /*
+* System
+*/
+
+
+function sp_set_page_template($template){
+	$currentId = get_the_ID();
+	$currentPostType = get_post_type($currentId);
+
+	if(is_single() && $currentPostType == 'sp_portfolio'){
+		$template = locate_template('page-templates/single-portfolio-page-template.php');	
+	}
+
+	return $template;
+}
+add_filter('template_include', 'sp_set_page_template', 99);
+
+
+/*
 * Header
 */
 
@@ -112,6 +130,85 @@ function sp_get_slider_section($result=null){
 	return $result;
 }
 
+function sp_get_portfolio_section($result=null){
+
+	$result .= '<div id="portfolio" class="portfolio portfolio-nomargin grid-container portfolio-notitle portfolio-full grid-container clearfix">';
+
+
+		$args = array(
+			'post_type' 	=> 	'sp_portfolio',
+			'order'			=>	'asc',
+		);
+		 				 
+		$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
+
+		if(count($spPosts)>0){
+			foreach ($spPosts as $spPost) {
+				$postID 	= $spPost['id'];
+				$title 		= $spPost['title']; 
+				$url 		= $spPost['url'];  
+				$image 		= SP_Framework_Post_Type_Utility::get_image($postID, 'full');
+
+				$result .= '<article class="portfolio-item pf-media pf-icons">';
+					$result .= '<div class="portfolio-image">';
+						$result .= '<a href="'.$url.'">';
+							$result .= '<img src="'.$image.'" alt="Open Imagination">';
+						$result .= '</a>';
+						$result .= '<div class="portfolio-overlay"></div>';
+					$result .= '</div>';
+					$result .= '<div class="portfolio-desc">';
+						$result .= '<h3><a href="'.$url.'">'.$title.'</a></h3>';
+
+						$terms = get_the_terms($postID , 'sp_portfolio_tax');
+						if(is_array($terms)){
+							$result .= '<span>';
+							foreach($terms as $term){
+								$result .= '<a href="'. get_term_link($term->term_id, $term->taxonomy ) .'">'. $term->name .'</a> ';
+							}
+							$result .= '</span>';
+						}
+					
+					$result .= '</div>';
+				$result .= '</article>';
+			}
+		}		
+
+	$result .= '</div>';
+
+
+	return $result;
+}
+
+function sp_get_clients_section($result=null){
+	$result .= '<div class="container clearfix">';
+
+		$result .= '<div id="oc-clients" class="owl-carousel image-carousel carousel-widget" data-margin="60" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false" data-items-xs="2" data-items-sm="3" data-items-md="4" data-items-lg="5" data-items-xl="6">';
+
+
+			$args = array(
+				'post_type' 	=> 	'sp_clients',
+				'order'			=>	'asc',
+			);
+			 				 
+			$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
+
+			if(count($spPosts)>0){
+				foreach ($spPosts as $spPost) {
+					$postID 	= $spPost['id'];
+					$title 		= $spPost['title']; 
+					$content 	= SP_Framework_Post_Type_Utility::get_content($postID); 
+					$image 		= SP_Framework_Post_Type_Utility::get_image($postID, 'full');
+
+					$result .= '<div class="oc-item"><img src="'.$image.'" alt="'.$title.'"></div>';
+				}
+			}		
+
+		$result .= '</div>';
+
+	$result .= '</div>';
+
+	return $result;
+}
 
 /*
 * Pages

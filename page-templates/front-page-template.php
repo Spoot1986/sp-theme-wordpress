@@ -208,115 +208,7 @@ echo sp_get_slider_section();
 			</div>
 		</div>
 
-		<div id="portfolio" class="portfolio portfolio-nomargin grid-container portfolio-notitle portfolio-full grid-container clearfix">
-
-			<article class="portfolio-item pf-media pf-icons">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/1.jpg" alt="Open Imagination">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Open Imagination</a></h3>
-					<span><a href="#">Media</a>, <a href="#">Icons</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-illustrations">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/2.jpg" alt="Locked Steel Gate">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Locked Steel Gate</a></h3>
-					<span><a href="#">Illustrations</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-media pf-icons">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/3.jpg" alt="Open Imagination">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Open Imagination</a></h3>
-					<span><a href="#">Media</a>, <a href="#">Icons</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-illustrations">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/4.jpg" alt="Locked Steel Gate">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Locked Steel Gate</a></h3>
-					<span><a href="#">Illustrations</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-media pf-icons">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/5.jpg" alt="Open Imagination">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Open Imagination</a></h3>
-					<span><a href="#">Media</a>, <a href="#">Icons</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-illustrations">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/6.jpg" alt="Locked Steel Gate">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Locked Steel Gate</a></h3>
-					<span><a href="#">Illustrations</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-media pf-icons">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/7.jpg" alt="Open Imagination">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Open Imagination</a></h3>
-					<span><a href="#">Media</a>, <a href="#">Icons</a></span>
-				</div>
-			</article>
-
-			<article class="portfolio-item pf-illustrations">
-				<div class="portfolio-image">
-					<a href="portfolio-single.html">
-						<img src="images/portfolio/4/8.jpg" alt="Locked Steel Gate">
-					</a>
-					<div class="portfolio-overlay"></div>
-				</div>
-				<div class="portfolio-desc">
-					<h3><a href="portfolio-single.html">Locked Steel Gate</a></h3>
-					<span><a href="#">Illustrations</a></span>
-				</div>
-			</article>
-
-			
-
-		</div>
+		<?php echo sp_get_portfolio_section();?>
 
 		<div class="section notopmargin notopborder">
 			<div class="container clearfix">
@@ -470,25 +362,7 @@ echo sp_get_slider_section();
 			</div>
 		</div>
 
-		<div class="container clearfix">
-
-			<div id="oc-clients" class="owl-carousel image-carousel carousel-widget" data-margin="60" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false" data-items-xs="2" data-items-sm="3" data-items-md="4" data-items-lg="5" data-items-xl="6">
-
-				<div class="oc-item"><a href="#"><img src="images/clients/1.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/2.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/3.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/4.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/5.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/6.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/7.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/8.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/9.png" alt="Clients"></a></div>
-				<div class="oc-item"><a href="#"><img src="images/clients/10.png" alt="Clients"></a></div>
-
-			</div>
-
-
-		</div>
+		<?php echo sp_get_clients_section();?>
 
 	</div>
 
