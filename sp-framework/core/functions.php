@@ -134,7 +134,6 @@ function sp_get_portfolio_section($result=null){
 
 	$result .= '<div id="portfolio" class="portfolio portfolio-nomargin grid-container portfolio-notitle portfolio-full grid-container clearfix">';
 
-
 		$args = array(
 			'post_type' 	=> 	'sp_portfolio',
 			'order'			=>	'asc',
@@ -265,6 +264,91 @@ function sp_get_page_contacts($result=null){
 			$result .= '</div>';
 		$result .= '</div>';
 	}	
+
+	return $result;
+}
+
+
+function sp_get_portfolio_list($result=null){
+	global $wp_query; 
+
+	//args
+	$postsPerPage = 2;
+
+	if(isset($wp_query->query['paged'])){
+		$paged = $wp_query->query['paged'];
+	} else {
+		$paged = 1;
+	}
+
+	//get count of items
+	$args = array(
+		'post_type' 	=> 'sp_portfolio',
+		'order'			=> 'asc',
+		'numberposts'	=> -1,
+	);
+	 				 
+	$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
+
+	$countPosts = count($spPosts);
+
+	//get items
+	$args = array(
+		'post_type' 		=> 'sp_portfolio',
+		'order'				=> 'asc',
+		'posts_per_page'	=> $postsPerPage,
+		'paged' 			=> $paged,
+	);
+	 				 
+	$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
+
+	if(count($spPosts)>0){
+
+		$result .= '<div id="portfolio" class="portfolio grid-container clearfix">';
+
+			foreach ($spPosts as $spPost) {
+				$postID 	= $spPost['id'];
+				$title 		= $spPost['title']; 
+				$url 		= $spPost['url'];  
+				$image 		= SP_Framework_Post_Type_Utility::get_image($postID, 'full');
+
+				$result .= '<article class="portfolio-item pf-media pf-icons">';
+					$result .= '<div class="portfolio-image">';
+						$result .= '<a href="'.$url.'">';
+							$result .= '<img src="'.$image.'" alt="'.$title.'">';
+						$result .= '</a>';
+					$result .= '</div>';
+					$result .= '<div class="portfolio-desc">';
+						$result .= '<h3><a href="'.$url.'">'.$title.'</a></h3>';
+
+						$terms = get_the_terms($postID , 'sp_portfolio_tax');
+						if(is_array($terms)){
+							$result .= '<span>';
+							foreach($terms as $term){
+								$result .= '<a href="'. get_term_link($term->term_id, $term->taxonomy ) .'">'. $term->name .'</a> ';
+							}
+							$result .= '</span>';
+						}
+
+					$result .= '</div>';
+				$result .= '</article>';
+			}
+
+		$result .= '</div>';
+
+		//pagination
+		$args = array(
+		    'wrapper_start' 	=> '<ul class="pagination nobottommargin">',
+		    'wrapper_end' 		=> '</ul>',
+		    'posts_per_page' 	=> $postsPerPage,
+		    'range' 			=> 4,
+		    'count_posts'		=> $countPosts,
+		    'page' 				=> 'portfolio',
+		);
+		 
+		$spPagination = SP_Framework_Post_Type_Utility::get_pagination($wp_query, $args);
+		$result .= $spPagination;
+	}
 
 	return $result;
 }
