@@ -4,6 +4,13 @@ Template Name:  Portfolio list
 */
 
 get_header();
+
+if(is_tax()){
+	$title = single_term_title('', 0);
+} else {
+	$title = get_the_title();
+}
+
 ?>
 
 <!-- Page Title
@@ -11,7 +18,7 @@ get_header();
 <section id="page-title">
 
 	<div class="container clearfix">
-		<h1><?php echo get_the_title();?></h1>
+		<h1><?php echo $title;?></h1>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#">Home</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Portfolio</li>

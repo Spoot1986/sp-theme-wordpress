@@ -17,6 +17,10 @@ function sp_set_page_template($template){
 		$template = locate_template('page-templates/single-portfolio-page-template.php');	
 	}
 
+	if(is_tax('sp_portfolio_tax')){
+		$template = locate_template('page-templates/list-portfolio-page-template.php');	
+	}
+
 	return $template;
 }
 add_filter('template_include', 'sp_set_page_template', 99);
@@ -268,12 +272,17 @@ function sp_get_page_contacts($result=null){
 	return $result;
 }
 
-
 function sp_get_portfolio_list($result=null){
 	global $wp_query; 
 
+	if(isset($wp_query->queried_object->term_id)){
+		$termID = $wp_query->queried_object->term_id;
+	} else {
+		$termID = '';
+	}
+
 	//args
-	$postsPerPage = 2;
+	$postsPerPage = 4;
 
 	if(isset($wp_query->query['paged'])){
 		$paged = $wp_query->query['paged'];
@@ -287,7 +296,15 @@ function sp_get_portfolio_list($result=null){
 		'order'			=> 'asc',
 		'numberposts'	=> -1,
 	);
-	 				 
+
+	if(!empty($termID)){
+	    $args['tax_query'][] = array(
+	        'taxonomy' => 'sp_portfolio_tax',
+	        'field'    => 'id',
+	        'terms'    => $termID
+	    );
+	}
+		 				 
 	$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
 
 	$countPosts = count($spPosts);
@@ -299,6 +316,14 @@ function sp_get_portfolio_list($result=null){
 		'posts_per_page'	=> $postsPerPage,
 		'paged' 			=> $paged,
 	);
+
+	if(!empty($termID)){
+	    $args['tax_query'][] = array(
+	        'taxonomy' => 'sp_portfolio_tax',
+	        'field'    => 'id',
+	        'terms'    => $termID
+	    );
+	}
 	 				 
 	$spPosts = SP_Framework_Post_Type_Utility::get_list($args);
 
